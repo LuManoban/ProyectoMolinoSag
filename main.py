@@ -1,16 +1,31 @@
-# This is a sample Python script.
+#Importamos las librerias
+from ultralytics import  YOLO
+import cv2
 
-# Press Mayús+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+#Leer nuestro modelo
+model = YOLO("molinosag.pt")
+
+#Realizar videocaptura
+cap = cv2.VideoCapture(1)
+
+#Bucle
+while True:
+    #Leer nuestros fotogramas
+    ret, frame = cap.read()
+
+    #Leemos resultados
+    resultados = model.predict(frame, imgsz = 640 , conf = 0.90)
+
+    #Mostramos resultados
+    anotaciones = resultados[0].plot()
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    #MOstramos nuestros fotogramas
+    cv2.imshow("DETECCION Y SEGMENTACION", anotaciones)
 
+    #Cerrar nuestro programa
+    if cv2.waitKey(1) == 27:
+        break
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+cap.release()
+cv2.destroyAllWindows()

@@ -1,0 +1,5 @@
+train: E:\ProyectoMolinoSAG\Data\train\
+val: E:\ProyectoMolinoSAG\Data\val\
+test:
+nc: 3
+names: ["MOLINOSAG", "PERNOS", "LINERS"]
